@@ -3,6 +3,7 @@
 - name: installing minikube
   connection: local
   hosts: localhost
+  become: yes
   tasks:
     - name: Download Kubectl binary
       get_url:
@@ -15,14 +16,12 @@
         url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
         dest: /usr/local/bin/minikube
         mode: '0755'
-      become: true
 
     - name: Install conntrack
       apt:
         name: conntrack
         state: present
         update_cache: yes
-      become: true
 
     - name: Install helm
       unarchive:
