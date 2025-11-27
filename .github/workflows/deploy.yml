@@ -31,9 +31,10 @@ jobs:
           EXPECTED="hello ${{github.event.inputs.site_name}}"
           echo "$RESPONSE"
           if [[ "$RESPONSE" == *"$EXPECTED"* ]]; then
+            echo "Response from http-echo is $RESPONSE which is good"
             exit 0
           else
-            echo "Response from http-echo is $RESPONSE instead of $EXPECTED"
+            echo "Response from http-echo is $RESPONSE which is bad"
             exit 1
           fi
           
