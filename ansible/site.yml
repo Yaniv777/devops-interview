@@ -1,7 +1,7 @@
 ---
 
 - name: installing minikube
-  connection: localhost
+  connection: local
   hosts: localhost
   roles:
     - role: kameshsampath.minikube
