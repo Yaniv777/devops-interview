@@ -4,6 +4,10 @@
   connection: local
   hosts: localhost
   become: yes
+  pre_tasks:
+    - name: install jmespath for minikube installation
+      pip:
+       name: jmespath
   roles:
     - name: githubixx.kubectl
       src: https://github.com/githubixx/ansible-role-kubectl.git
