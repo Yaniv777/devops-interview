@@ -17,4 +17,4 @@ jobs:
       # Start Kubernetes
       - run: minikube start
       # Deploy the Application
-      - run: helm template test ./helm
+      - run: helm install ${{github.event.inputs.site_name}} ./helm --set siteName=${{github.event.inputs.site_name}} --namespace ${{github.event.inputs.site_name}} --create-namespace
