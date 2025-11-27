@@ -21,4 +21,4 @@ jobs:
       # Verification
       - run: kubectl config set-context --current --namespace=${{github.event.inputs.site_name}}
       - run: IP=$(kubectl get svc ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
-      - run: kubectl get pods
+      - run: kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i --curl -v -s http://$SERVICE_IP:$SERVICE_PORT
