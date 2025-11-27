@@ -1,0 +1,9 @@
+---
+
+- name: installing minikube
+  connection: localhost
+  hosts: localhost
+  roles:
+    - role:
+      vars:
+        minikube_create: true
