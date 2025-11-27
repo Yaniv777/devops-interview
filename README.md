@@ -2,7 +2,7 @@
 
 In order to run the workflow you need:
 1. Go to the project's actions tab
-2. On the left panel, click on the .github/workflows/deploy.yml workflow
+2. On the left panel, click on the `.github/workflows/deploy.yml` workflow
 3. Click "Run workflow"
 4. Specify your site name & click "Run workflow"
 
