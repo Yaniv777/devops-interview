@@ -7,11 +7,14 @@ on:
         type: string
 
 jobs:
-  Prepare-the-Runner:
+  devops-interview:
     runs-on: ubuntu-latest
     steps:
       - name: clone repo
         uses: actions/checkout@v3
-      - run: ansible-galaxy role install kameshsampath.minikube
-      - run: ansible-galaxy role install githubixx.kubectl
+      # Prepare the Runner
       - run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
+      # Start Kubernetes
+
+      # Deploy the Application
+      - run: helm template test ./helm
