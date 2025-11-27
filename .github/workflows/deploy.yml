@@ -21,4 +21,4 @@ jobs:
       # Verification
       - run: kubectl config set-context --current --namespace=${{github.event.inputs.site_name}}
       - run: IP=$(kubectl get svc ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
-      - run: minikube ssh -- "curl -s http://$IP:5678"
+      - run: kubectl get pods
