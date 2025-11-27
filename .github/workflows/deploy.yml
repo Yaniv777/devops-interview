@@ -15,6 +15,6 @@ jobs:
       # Prepare the Runner
       - run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
       # Start Kubernetes
-
+      - run: minikube start
       # Deploy the Application
       - run: helm template test ./helm
