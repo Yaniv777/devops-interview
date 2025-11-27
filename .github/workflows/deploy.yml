@@ -10,17 +10,22 @@ jobs:
   devops-interview:
     runs-on: ubuntu-latest
     steps:
-      - name: clone repo
+      - name: Clone Repo
         uses: actions/checkout@v3
       # Prepare the Runner
-      - run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
+      - name: Run Ansible Playbook
+        run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
       # Start Kubernetes
-      - run: minikube start
+      - name: Startu Minikube Cluster
+        run: minikube start
       # Deploy the Application
-      - run: helm install ${{github.event.inputs.site_name}} ./helm --set siteName=${{github.event.inputs.site_name}} --namespace ${{github.event.inputs.site_name}} --create-namespace
+      - name: Helm Install
+        run: helm install ${{github.event.inputs.site_name}} ./helm --set siteName=${{github.event.inputs.site_name}} --namespace ${{github.event.inputs.site_name}} --create-namespace
       # Verification
-      - run: kubectl config set-context --current --namespace=${{github.event.inputs.site_name}}
-      - run: |
+      - name: Switch to Deployment Namespace
+        run: kubectl config set-context --current --namespace=${{github.event.inputs.site_name}}
+      - name: Check if Output is Correct
+        run: |
           IP=$(kubectl get service ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
           sleep 5
           RESPONSE=$(kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:5678)
