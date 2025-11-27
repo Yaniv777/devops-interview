@@ -3,7 +3,7 @@ siteName: "Yaniv"
 image:
   repository: hashicorp/http-echo
   tag: latest
-  pullPolicy: always
+  pullPolicy: Always
 service:
   port: *port
   targetPort: *port
