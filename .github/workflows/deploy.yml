@@ -16,18 +16,17 @@ jobs:
       - name: Run Ansible Playbook
         run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
       # Start Kubernetes
-      - name: Startu Minikube Cluster
+      - name: Start Minikube Cluster
         run: minikube start
       # Deploy the Application
       - name: Helm Install
-        run: helm install ${{github.event.inputs.site_name}} ./helm --set siteName=${{github.event.inputs.site_name}} --namespace ${{github.event.inputs.site_name}} --create-namespace
+        run: helm install ${{github.event.inputs.site_name}} ./helm --set siteName=${{github.event.inputs.site_name}} --namespace ${{github.event.inputs.site_name}} --create-namespace --wait
       # Verification
       - name: Switch to Deployment Namespace
         run: kubectl config set-context --current --namespace=${{github.event.inputs.site_name}}
       - name: Check if Output is Correct
         run: |
           IP=$(kubectl get service ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
-          kubectl wait --for=condition=Ready pod/${{github.event.inputs.site_name}} --timeout=60s
           RESPONSE=$(kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:5678)
           EXPECTED="hello ${{github.event.inputs.site_name}}"
           echo "$RESPONSE"
