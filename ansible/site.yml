@@ -4,6 +4,6 @@
   connection: localhost
   hosts: localhost
   roles:
-    - role:
+    - role: kameshsampath.minikube
       vars:
         minikube_create: true
