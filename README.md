@@ -2,8 +2,9 @@
 
 In order to run the workflow you need:
 1. Go to the project's actions tab
-2. Click "Run workflow"
-3. Specify your site name & click "Run workflow"
+2. On the left panel, click on the .github/workflows/deploy.yml workflow
+3. Click "Run workflow"
+4. Specify your site name & click "Run workflow"
 
 ## Helm/Terraform
 
@@ -11,3 +12,4 @@ I chose to go with Helm since I am more experienced in Helm than Terraform, espe
 
 
 Thank you for the opportunity! It was very fun and challenging.
+
