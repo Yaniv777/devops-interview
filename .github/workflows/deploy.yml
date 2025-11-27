@@ -20,4 +20,4 @@ jobs:
       - run: helm install ${{github.event.inputs.site_name}} ./helm --set siteName=${{github.event.inputs.site_name}} --namespace ${{github.event.inputs.site_name}} --create-namespace
       # Verification
       - run: kubectl config set-context --current --namespace=${{github.event.inputs.site_name}}
-      - run: kubectl get services
+      - run: kubectl get service ${{github.event.inputs.site_name}}
