@@ -3,6 +3,7 @@
 - name: installing minikube
   connection: localhost
   hosts: localhost
+  become: yes
   roles:
     - name: githubixx.kubectl
       src: https://github.com/githubixx/ansible-role-kubectl.git
