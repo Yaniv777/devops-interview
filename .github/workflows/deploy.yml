@@ -10,4 +10,6 @@ jobs:
   Prepare-the-Runner:
     runs-on: ubuntu-latest
     steps:
+    - run: ls
+    - run: pwd
     - run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
