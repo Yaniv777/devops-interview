@@ -1,6 +1,6 @@
 ---
 
-- name: installing minikube
+- name: Ansible Configuration
   connection: local
   hosts: localhost
   become: yes
