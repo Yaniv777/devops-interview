@@ -20,5 +20,6 @@ jobs:
       - run: helm install ${{github.event.inputs.site_name}} ./helm --set siteName=${{github.event.inputs.site_name}} --namespace ${{github.event.inputs.site_name}} --create-namespace
       # Verification
       - run: kubectl config set-context --current --namespace=${{github.event.inputs.site_name}}
-      - run: IP=$(kubectl get svc ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
-      - run: kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s -v http://$IP:5678
+      - run: |
+          IP=$(kubectl get svc ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
+          kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s -v http://$IP:5678
