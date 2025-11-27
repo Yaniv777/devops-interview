@@ -3,7 +3,7 @@ on:
     inputs:
       site_name:
         description: 'name of the site'
-        required: false
+        required: true
         type: string
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
           IP=$(kubectl get service ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
           sleep 5
           RESPONSE=$(kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:5678)
-          EXPECTED="hello $SITE_NAME"
+          EXPECTED="hello ${{github.event.inputs.site_name}}"
           echo "$RESPONSE"
           if [[ "$RESPONSE" == *"$EXPECTED"* ]]; then
             exit 0
