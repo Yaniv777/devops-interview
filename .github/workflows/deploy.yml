@@ -13,4 +13,5 @@ jobs:
       - name: clone repo
         uses: actions/checkout@v3
       - run: ansible-galaxy role install kameshsampath.minikube
+      - run: ansible-galaxy role install githubixx.kubectl
       - run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
