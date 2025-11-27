@@ -22,3 +22,6 @@ spec:
             - name: http
               containerPort: {{ .Values.port }}
               protocol: TCP
+          args:
+            - "-text=hello preview-test"
+            - "-listen=:5678"
