@@ -23,5 +23,5 @@ spec:
               containerPort: {{ .Values.port }}
               protocol: TCP
           args:
-            - "-text=hello ${{ .Values.siteName }}"
+            - "-text=hello {{ .Values.siteName }}"
             - "-listen=:5678"
