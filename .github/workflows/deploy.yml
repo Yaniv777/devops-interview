@@ -27,7 +27,7 @@ jobs:
       - name: Check if Output is Correct
         run: |
           IP=$(kubectl get service ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
-          kubectl wait --for=condition=ready pod -l app=${{github.event.inputs.site_name}} --timeout=60s
+          sleep 5
           RESPONSE=$(kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:5678)
           EXPECTED="hello ${{github.event.inputs.site_name}}"
           echo "$RESPONSE"
