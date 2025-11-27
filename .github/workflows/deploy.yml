@@ -23,4 +23,12 @@ jobs:
       - run: |
           IP=$(kubectl get service ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
           sleep 5
-          kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:5678
+          RESPONSE=$(kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:5678)
+          EXPECTED="hello $SITE_NAME"
+          echo "$RESPONSE"
+          if [[ "$RESPONSE" == *"$EXPECTED"* ]]; then
+            exit 0
+          else
+            exit 1
+          fi
+          
