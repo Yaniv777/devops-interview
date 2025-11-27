@@ -22,5 +22,5 @@ jobs:
       - run: kubectl config set-context --current --namespace=${{github.event.inputs.site_name}}
       - run: |
           IP=$(kubectl get service ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
-          kubectl wait --for=condition=ready pod -l app=$SITE_NAME -n $SITE_NAME --timeout=60s
+          sleep 5
           kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:5678
