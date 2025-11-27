@@ -27,14 +27,15 @@ jobs:
       - name: Check if Output is Correct
         run: |
           IP=$(kubectl get service ${{github.event.inputs.site_name}} -o jsonpath='{.spec.clusterIP}')
-          RESPONSE=$(kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:5678)
+          PORT=$(kubectl get service ${{ github.event.inputs.site_name }} -o jsonpath='{.spec.ports[0].port}')
+          RESPONSE=$(kubectl run test-curl --image=curlimages/curl --restart=Never --rm -i -- -s http://$IP:$PORT)
           EXPECTED="hello ${{github.event.inputs.site_name}}"
           echo "$RESPONSE"
           if [[ "$RESPONSE" == *"$EXPECTED"* ]]; then
-            echo "Response from http-echo is $RESPONSE which is good"
+            echo "Response matches expected output."
             exit 0
           else
-            echo "Response from http-echo is $RESPONSE which is bad"
+            echo "Expected '$EXPECTED' but got '$RESPONSE'"
             exit 1
           fi
           
