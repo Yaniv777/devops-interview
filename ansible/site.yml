@@ -3,13 +3,23 @@
 - name: installing minikube
   connection: local
   hosts: localhost
-  become: yes
-  pre_tasks:
-    - name: install jmespath for minikube installation
-      pip:
-       name: jmespath
-  roles:
-    - name: githubixx.kubectl
-      src: https://github.com/githubixx/ansible-role-kubectl.git
-      version: 24.0.1+1.33.5
-    - role: kameshsampath.minikube
+  tasks:
+    - name: Download Kubectl binary
+      get_url:
+        url: "https://dl.k8s.io/release/v1.29.0/bin/linux/amd64/kubectl"
+        dest: /usr/local/bin/kubectl
+        mode: '0755'
+
+    - name: Download Minikube binary
+      get_url:
+        url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+        dest: /usr/local/bin/minikube
+        mode: '0755'
+      become: true
+
+    - name: Install conntrack (Minikube dependency)
+      apt:
+        name: conntrack
+        state: present
+        update_cache: yes
+      become: true
