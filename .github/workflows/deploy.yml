@@ -33,6 +33,7 @@ jobs:
           if [[ "$RESPONSE" == *"$EXPECTED"* ]]; then
             exit 0
           else
+            echo "Response from http-echo is $RESPONSE instead of $EXPECTED"
             exit 1
           fi
           
