@@ -12,6 +12,5 @@ jobs:
     steps:
       - name: clone repo
         uses: actions/checkout@v3
-      - run: ls
-      - run: pwd
+      - run: ansible-galaxy role install kameshsampath.minikube
       - run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
