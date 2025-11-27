@@ -10,4 +10,4 @@ jobs:
   Prepare-the-Runner:
     runs-on: ubuntu-latest
     steps:
-    - run: ansible-playbook --connection=local --inventory localhost, site.yml
+    - run: ansible-playbook --connection=local --inventory localhost, ansible/site.yml
