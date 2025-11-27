@@ -4,6 +4,6 @@
   connection: local
   hosts: localhost
   roles:
-    - role: kameshsampath.minikube
-      vars:
-        minikube_create: true
+    - name: githubixx.kubectl
+      src: https://github.com/githubixx/ansible-role-kubectl.git
+      version: latest
